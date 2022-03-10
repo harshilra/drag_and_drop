@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-color: rgb(180, 161, 161);
+        
+        margin: 10px 6px ;
+    }  
+    .myImg{
+        position: relative;
+        background-image: url('img.jpg');
+        height: 90px;
+        /* background-color: red; */
+        width: 90px;
+        margin:5px;
+    }
+    .box{
+        display: inline-block;
+        position: relative;
+        background-color: azure;
+        height: 100px;
+        width: 100px;
+    }
+    .hold{
+        border: black solid 3px;
+    }
+    .das{
+        border: dashed black 2px;
+    }
+
+
+</style>
+
+<body>
+    <h2>Drag and Drop</h2>
+
+    <div class="box">
+
+        <div class="myImg " draggable="true"></div>
+    </div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+
+    <script>
+    myImg =document.querySelector('.myImg')    
+    box =document.getElementsByClassName("box")    
+
+    myImg.addEventListener("dragstart",(e)=>{
+        console.log("drag start")
+        e.target.className += ' hold'
+        setTimeout(()=>{
+            e.target.className = 'hide'
+        },0)
+
+    })
+    myImg.addEventListener("dragend",(e)=>{
+        console.log("drag end")
+        e.target.className = "myImg";
+
+    })
+
+
+    for(add of box)
+    {
+        add.addEventListener('dragover',(e)=>{
+            e.preventDefault();
+            console.log("dragover")
+            
+        });
+        add.addEventListener('dragenter',(e)=>{
+            console.log("dragEnter")
+            e.target.className += ' das'
+            
+        });
+        add.addEventListener('dragleave',(e)=>{
+            console.log("dragLeave")
+            e.target.className = ' box'
+            
+            
+        });
+        add.addEventListener('drop',(e)=>{
+            console.log("drop")
+            e.target.append(myImg)
+        });
+    }
+    </script>
+</body>
+</html>
